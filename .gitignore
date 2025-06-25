@@ -1,0 +1,57 @@
+# Visual Studio / .NET
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+*.pidb
+*.svclog
+*.vsp
+*.pdb
+*.cache
+*.ilk
+*.log
+*.vs/
+.vscode/
+runs/
+
+# Rider
+.idea/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# NuGet packages
+*.nupkg
+packages/
+.nuget/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OpenCV generated files (if any)
+*.avi
+*.mp4
+*.mov
+
+# ONNX models (if you don't want to track large model files, uncomment below)
+*.onnx
+
+# YAML config files (if you want to track, keep them; else uncomment)
+# *.yaml
+# *.yml
+
+# JetBrains Rider caches
+.idea/
+
+# Others
+*.vspscc
+*.vssscc
+
+# User-specific files
+*.sln.docstates

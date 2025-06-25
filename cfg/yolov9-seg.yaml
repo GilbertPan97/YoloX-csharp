@@ -1,0 +1,47 @@
+meta:
+  config_type: yolov-model-interface
+  description: YOLO interface config
+  format_version: 1.0
+
+model:
+  name: yolov9-seg
+  version: v9
+  type: anchor-free
+  task: InstanceSeg
+
+  input:
+    shape: [1, 3, 640, 640]
+    shape_seq: [0, 1, 2, 3]               # [batch, channels, height, width]
+    dtype: float32
+    normalize: true
+    pad_resize: true
+    format: "CHW"
+
+  output:
+    - name: det
+      output_index: 0                     # 第 0 个输出张量
+      shape: [1, 37, 8400]
+      shape_seq: [0, 2, 1]		            # keep shape as [batch, num_predictions, prediction_channels]
+      type: detection
+      format:
+        box_range: [0, 3]
+        objectness: null
+        class_range: [4]
+        mask_coeff_range: [5, 36]
+
+    - name: mask
+      output_index: 1                     # 第 1 个输出张量
+      shape: [1, 32, 160, 160]
+      shape_seq: [0, 1, 2, 3]             #  keep shape as [batch, channels, height, width]
+      type: mask_feature
+      format:
+        channels: 32
+        spatial: [160, 160]
+
+  anchors: 0              # 使用了多少锚框
+  grids:
+    - [80, 80]
+    - [40, 40]
+    - [20, 20]
+
+  num_classes: 1
