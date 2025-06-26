@@ -14,6 +14,7 @@ obj/
 *.vs/
 .vscode/
 runs/
+projs/
 
 # Rider
 .idea/
