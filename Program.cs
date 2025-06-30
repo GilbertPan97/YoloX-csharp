@@ -27,11 +27,11 @@ class Program
                         .Where(parts => parts.Length == 2)
                         .ToDictionary(parts => parts[0], parts => parts[1]);
 
-        string modelPath = argDict.GetValueOrDefault("--model", "../../../models/yolov7-seg.onnx");
-        string imgDir = argDict.GetValueOrDefault("--imgDir", "../../../imgs");
+        string modelPath = argDict.GetValueOrDefault("--model", "../../../models/yolov9-seg-btl.onnx");
+        string imgDir = argDict.GetValueOrDefault("--imgDir", "../../../sandbox/imgs-btl");
         string categoriesPath = argDict.GetValueOrDefault("--labels", "../../../models/labels_algae.txt");
         string saveDir = argDict.GetValueOrDefault("--saveDir", "../../../runs");
-        string configPath = argDict.GetValueOrDefault("--yaml", "../../../cfg/yolov7-seg.yaml");
+        string configPath = argDict.GetValueOrDefault("--yaml", "../../../cfg/yolov9-seg.yaml");
 
         // Check required arguments
         if (string.IsNullOrEmpty(modelPath) || string.IsNullOrEmpty(imgDir) ||
