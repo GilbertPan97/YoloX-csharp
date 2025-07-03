@@ -1,0 +1,37 @@
+meta:
+  config_type: yolov-model-interface
+  description: YOLO interface config
+  format_version: 1.0
+
+model:
+  name: yolov9-seg
+  version: v9
+  type: anchor-free
+  task: ObjectDet
+
+  input:
+    shape: [1, 3, 640, 640]
+    shape_seq: [0, 1, 2, 3]               # [batch, channels, height, width]
+    dtype: float32
+    normalize: true
+    pad_resize: true
+    format: "CHW"
+
+  output:
+    - name: det
+      output_index: 0                     # output at index: 0
+      shape: [1, 40, 8400]                # [batch, prediction_channels, num_predictions]
+      shape_seq: [0, 2, 1]		            # keep original shape to [batch, num_predictions, prediction_channels]
+      type: detection
+      format:                             # prediction_channels format
+        box_range: [0, 3]                 # 0-3: bounding box
+        objectness: null                  # null: anchor-free with no object score
+        class_range: [4, 39]              # 4-39: class score (36 class)
+
+  anchors: 0              # anchors number
+  grids:                  # num_predictions (anchor-free): g0^2 + g1^2 + g2^2
+    - [80, 80]
+    - [40, 40]
+    - [20, 20]
+
+  num_classes: 1
