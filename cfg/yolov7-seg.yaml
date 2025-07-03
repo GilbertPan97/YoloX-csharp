@@ -19,8 +19,8 @@ model:
 
   output:
     - name: det
-      output_index: 0                     # 第 0 个输出张量
-      shape: [1, 25200, 73]
+      output_index: 0                     # output at index: 0
+      shape: [1, 25200, 73]               # [batch, num_predictions, prediction_channels]
       shape_seq: [0, 1, 2]		            # keep shape as [batch, num_predictions, prediction_channels]
       type: detection
       format:
@@ -30,16 +30,16 @@ model:
         mask_coeff_range: [41, 72]
 
     - name: mask
-      output_index: 4                     # 第 4 个输出张量
-      shape: [1, 32, 160, 160]
-      shape_seq: [0, 1, 2, 3]             #  keep shape as [batch, channels, height, width]
+      output_index: 4                     # output at index: 4
+      shape: [1, 32, 160, 160]            # [batch, channels, height, width]
+      shape_seq: [0, 1, 2, 3]             # keep original shape to [batch, channels, height, width]
       type: mask_feature
       format:
         channels: 32
         spatial: [160, 160]
 
-  anchors: 3              # 使用了多少锚框
-  grids:
+  anchors: 3              # anchors number
+  grids:                  # num_predictions (anchor-based): (g0^2 + g1^2 + g2^2) * anchors
     - [80, 80]
     - [40, 40]
     - [20, 20]
