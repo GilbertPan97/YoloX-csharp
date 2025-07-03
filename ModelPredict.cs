@@ -748,14 +748,16 @@ public class ModelPredict
                 item.Add(classIdx); // class index
 
                 // Retrive extra coefficients (such as mask coefficients)
-                var extraCoeff = new List<float>();
-                int minCoefIdx = fmt.mask_coeff_range.Min();
-                int maxCoefIdx = fmt.mask_coeff_range.Max();
-                for (int j = minCoefIdx; j < maxCoefIdx + 1; j++)
-                    extraCoeff.Add(pred[offset + j]);
+                if (fmt.mask_coeff_range != null) {
+                    var extraCoeff = new List<float>();
+                    int minCoefIdx = fmt.mask_coeff_range.Min();
+                    int maxCoefIdx = fmt.mask_coeff_range.Max();
+                    for (int j = minCoefIdx; j < maxCoefIdx + 1; j++)
+                        extraCoeff.Add(pred[offset + j]);
 
-                if (extraCoeff.Count > 0)
-                    item.AddRange(extraCoeff);
+                    if (extraCoeff.Count > 0)
+                        item.AddRange(extraCoeff);
+                }
 
                 itemsPred.Add(item);
             }

@@ -20,14 +20,14 @@ model:
   output:
     - name: det
       output_index: 0                     # output at index: 0
-      shape: [1, 37, 8400]                # [batch, prediction_channels, num_predictions]
+      shape: [1, 72, 8400]                # [batch, prediction_channels, num_predictions]
       shape_seq: [0, 2, 1]		            # keep original shape to [batch, num_predictions, prediction_channels]
       type: detection
-      format:
-        box_range: [0, 3]
-        objectness: null
-        class_range: [4]
-        mask_coeff_range: [5, 36]
+      format:                             # prediction_channels format
+        box_range: [0, 3]                 # 0-3: bounding box
+        objectness: null                  # null: anchor-free with no object score
+        class_range: [4, 39]              # 4-39: class score (36 class)
+        mask_coeff_range: [40, 71]        # 40-71: masks coeffcient (32 channels)
 
     - name: mask
       output_index: 1                     # output at index: 1

@@ -7,7 +7,7 @@ model:
   name: yolov7-seg
   version: v7
   type: anchor-based
-  task: InstanceSeg
+  task: ObjectDet
 
   input:
     shape: [1, 3, 640, 640]
@@ -20,23 +20,13 @@ model:
   output:
     - name: det
       output_index: 0                     # output at index: 0
-      shape: [1, 25200, 73]               # [batch, num_predictions, prediction_channels]
+      shape: [1, 25200, 41]               # [batch, num_predictions, prediction_channels]
       shape_seq: [0, 1, 2]		            # keep shape as [batch, num_predictions, prediction_channels]
       type: detection
       format:                             # prediction_channels format
         box_range: [0, 3]                 # 0-3: bounding box
         objectness: 4                     # 4: object score
         class_range: [5, 40]              # 5-40: class score (36 class)
-        mask_coeff_range: [41, 72]        # 41-72: masks coeffcient (32 channels)
-
-    - name: mask
-      output_index: 4                     # output at index: 4
-      shape: [1, 32, 160, 160]            # [batch, channels, height, width]
-      shape_seq: [0, 1, 2, 3]             # keep original shape to [batch, channels, height, width]
-      type: mask_feature
-      format:
-        channels: 32
-        spatial: [160, 160]
 
   anchors: 3              # anchors number
   grids:                  # num_predictions (anchor-based): (g0^2 + g1^2 + g2^2) * anchors

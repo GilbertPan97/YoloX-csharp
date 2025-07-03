@@ -72,8 +72,8 @@ public class Renderer
         List<int> labels,
         List<float> scores)
     {
-        if (bboxes.Count != labels.Count || labels.Count != scores.Count || masks.Count != labels.Count)
-            throw new ArgumentException("The sizes of bboxes, labels, scores, and masks lists must be equal.");
+        if (bboxes.Count != labels.Count || labels.Count != scores.Count)
+            throw new ArgumentException("The sizes of bboxes, labels, scores must be equal.");
 
         // Filter out low-score detections in reverse order
         for (int i = bboxes.Count - 1; i >= 0; i--)
@@ -81,9 +81,10 @@ public class Renderer
             if (scores[i] < scoreThreshold)
             {
                 bboxes.RemoveAt(i);
-                masks.RemoveAt(i);
                 labels.RemoveAt(i);
                 scores.RemoveAt(i);
+
+                if (masks.Count != 0) masks.RemoveAt(i);
             }
         }
 
@@ -163,7 +164,7 @@ public class Renderer
 
             // Copy colored mask to output image (only where mask > 0)
             coloredImg.CopyTo(image, curMask);
-        }
+        } 
 
         return image;
     }
